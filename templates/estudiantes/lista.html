@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Lista de Estudiantes{% endblock %}
+{% block content %}
+
+<div class="page-head">
+    <h2>📋 Lista de Estudiantes</h2>
+    <div class="actions">
+        <a href="{{ url_for('estudiantes.formulario') }}" class="btn btn-primary">➕ Agregar</a>
+        <a href="{{ url_for('estudiantes.index') }}" class="btn btn-secondary">⬅️ Volver</a>
+    </div>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th><th>Cédula</th><th>Estudiante</th>
+                <th>Correo</th><th>Nacimiento</th><th>Estado</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for e in estudiantes %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ e.cedula }}</td>
+                <td>{{ e.apellido }}, {{ e.nombre }}</td>
+                <td>{{ e.correo }}</td>
+                <td>{{ e.fecha_nacimiento or "—" }}</td>
+                <td>
+                    <span class="badge {{ 'activo' if e.estado == 'Activo' else 'inactivo' }}">
+                        {{ e.estado }}
+                    </span>
+                </td>
+                <td class="actions">
+                    <a href="{{ url_for('estudiantes.editar', id_estudiante=e.id_estudiante) }}"
+                       class="btn btn-warning">✏️ Editar</a>
+                    <form action="{{ url_for('estudiantes.eliminar', id_estudiante=e.id_estudiante) }}"
+                          method="POST"
+                          onsubmit="return confirm('¿Eliminar este estudiante?');">
+                        <button type="submit" class="btn btn-danger">🗑️ Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="7">No hay estudiantes registrados.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

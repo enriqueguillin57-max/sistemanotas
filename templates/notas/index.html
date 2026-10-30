@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Notas · Sistema de Notas{% endblock %}
+{% block content %}
+
+<div class="page-head">
+    <h2>📝 Gestión de Notas</h2>
+    <a href="{{ url_for('notas.crear') }}" class="btn btn-primary">➕ Nueva nota</a>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th><th>Estudiante</th><th>Asignatura</th>
+                <th>N1</th><th>N2</th><th>Examen</th><th>Promedio</th>
+                <th>Observación</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for n in notas %}
+            <tr>
+                <td>{{ n.id_nota }}</td>
+                <td>{{ n.estudiante }}</td>
+                <td>{{ n.asignatura }}</td>
+                <td>{{ n.nota1 }}</td>
+                <td>{{ n.nota2 }}</td>
+                <td>{{ n.examen }}</td>
+                <td><strong>{{ n.promedio }}</strong></td>
+                <td>{{ n.observacion or "—" }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('notas.editar', id_nota=n.id_nota) }}"
+                       class="btn btn-warning">✏️ Editar</a>
+                    <form action="{{ url_for('notas.eliminar', id_nota=n.id_nota) }}"
+                          method="POST"
+                          onsubmit="return confirm('¿Eliminar esta nota?');">
+                        <button type="submit" class="btn btn-danger">🗑️ Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="9">No hay notas registradas.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

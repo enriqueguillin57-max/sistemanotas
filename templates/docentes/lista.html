@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Lista de Docentes{% endblock %}
+{% block content %}
+
+<div class="page-head">
+    <h2>📋 Lista de Docentes</h2>
+    <div class="actions">
+        <a href="{{ url_for('docentes.formulario') }}" class="btn btn-primary">➕ Agregar</a>
+        <a href="{{ url_for('docentes.index') }}" class="btn btn-secondary">⬅️ Volver</a>
+    </div>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th><th>Cédula</th><th>Docente</th>
+                <th>Correo</th><th>Especialidad</th><th>Estado</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for d in docentes %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ d.cedula }}</td>
+                <td>{{ d.apellido }}, {{ d.nombre }}</td>
+                <td>{{ d.correo }}</td>
+                <td>{{ d.especialidad or "—" }}</td>
+                <td>
+                    <span class="badge {{ 'activo' if d.estado == 'Activo' else 'inactivo' }}">
+                        {{ d.estado }}
+                    </span>
+                </td>
+                <td class="actions">
+                    <a href="{{ url_for('docentes.editar', id_docente=d.id_docente) }}"
+                       class="btn btn-warning">✏️ Editar</a>
+                    <form action="{{ url_for('docentes.eliminar', id_docente=d.id_docente) }}"
+                          method="POST"
+                          onsubmit="return confirm('¿Eliminar este docente?');">
+                        <button type="submit" class="btn btn-danger">🗑️ Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="7">No hay docentes registrados.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

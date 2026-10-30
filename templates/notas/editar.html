@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Editar Nota{% endblock %}
+{% block content %}
+
+<div class="page-head">
+    <h2>✏️ Editar Nota #{{ nota.id_nota }}</h2>
+    <a href="{{ url_for('notas.index') }}" class="btn btn-secondary">⬅️ Volver</a>
+</div>
+
+<div class="card">
+    <form action="{{ url_for('notas.editar', id_nota=nota.id_nota) }}" method="POST">
+        <div class="form-grid">
+            <div class="field">
+                <label for="id_estudiante">Estudiante</label>
+                <select id="id_estudiante" name="id_estudiante" disabled>
+                    {% for e in estudiantes %}
+                        <option value="{{ e.id_estudiante }}"
+                            {% if e.id_estudiante == nota.id_estudiante %}selected{% endif %}>
+                            {{ e.apellido }}, {{ e.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <small class="edit-note">
+                    El estudiante y la asignatura no se pueden cambiar en la edición.
+                </small>
+            </div>
+            <div class="field">
+                <label for="id_asignatura">Asignatura</label>
+                <select id="id_asignatura" name="id_asignatura" disabled>
+                    {% for a in asignaturas %}
+                        <option value="{{ a.id_asignatura }}"
+                            {% if a.id_asignatura == nota.id_asignatura %}selected{% endif %}>
+                            {{ a.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="field">
+                <label for="nota1">Nota 1 (0 - 10) *</label>
+                <input type="number" id="nota1" name="nota1" step="0.01" min="0" max="10"
+                       value="{{ nota.nota1 }}" required>
+            </div>
+            <div class="field">
+                <label for="nota2">Nota 2 (0 - 10) *</label>
+                <input type="number" id="nota2" name="nota2" step="0.01" min="0" max="10"
+                       value="{{ nota.nota2 }}" required>
+            </div>
+            <div class="field">
+                <label for="examen">Examen (0 - 10) *</label>
+                <input type="number" id="examen" name="examen" step="0.01" min="0" max="10"
+                       value="{{ nota.examen }}" required>
+            </div>
+            <div class="field full">
+                <label for="observacion">Observación</label>
+                <textarea id="observacion" name="observacion" rows="2"
+                          maxlength="255">{{ nota.observacion or '' }}</textarea>
+            </div>
+            <div class="full actions">
+                <button type="submit" class="btn btn-success">💾 Actualizar</button>
+                <a href="{{ url_for('notas.index') }}" class="btn btn-secondary">❌ Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

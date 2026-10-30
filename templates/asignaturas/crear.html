@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Nueva Asignatura{% endblock %}
+{% block content %}
+
+<div class="page-head">
+    <h2>➕ Registrar Asignatura</h2>
+    <a href="{{ url_for('asignaturas.index') }}" class="btn btn-secondary">⬅️ Volver</a>
+</div>
+
+<div class="card">
+    <form action="{{ url_for('asignaturas.crear') }}" method="POST">
+        <div class="form-grid">
+            <div class="field">
+                <label for="nombre">Nombre *</label>
+                <input type="text" id="nombre" name="nombre" maxlength="100" required>
+            </div>
+            <div class="field">
+                <label for="nivel">Nivel</label>
+                <input type="text" id="nivel" name="nivel" maxlength="50"
+                       placeholder="Ej: Básico, Medio, Superior">
+            </div>
+            <div class="field full">
+                <label for="descripcion">Descripción</label>
+                <textarea id="descripcion" name="descripcion" rows="3" maxlength="255"></textarea>
+            </div>
+            <div class="field">
+                <label for="id_docente">Docente *</label>
+                <select id="id_docente" name="id_docente" required>
+                    <option value="">-- Seleccione --</option>
+                    {% for d in docentes %}
+                        <option value="{{ d.id_docente }}">{{ d.apellido }}, {{ d.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="full actions">
+                <button type="submit" class="btn btn-success">💾 Guardar</button>
+                <a href="{{ url_for('asignaturas.index') }}" class="btn btn-secondary">❌ Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

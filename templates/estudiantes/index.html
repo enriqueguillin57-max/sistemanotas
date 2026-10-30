@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Estudiantes · Sistema de Notas{% endblock %}
+{% block content %}
+
+<div class="page-head">
+    <h2>🧑‍🎓 Gestión de Estudiantes</h2>
+    <a href="{{ url_for('estudiantes.crear') }}" class="btn btn-primary">➕ Nuevo estudiante</a>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th><th>Cédula</th><th>Nombre completo</th>
+                <th>Correo</th><th>Estado</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for e in estudiantes %}
+            <tr>
+                <td>{{ e.id_estudiante }}</td>
+                <td>{{ e.cedula }}</td>
+                <td>{{ e.apellido }}, {{ e.nombre }}</td>
+                <td>{{ e.correo }}</td>
+                <td>
+                    <span class="badge {{ 'activo' if e.estado == 'Activo' else 'inactivo' }}">
+                        {{ e.estado }}
+                    </span>
+                </td>
+                <td class="actions">
+                    <a href="{{ url_for('estudiantes.editar', id_estudiante=e.id_estudiante) }}"
+                       class="btn btn-warning">✏️ Editar</a>
+                    <form action="{{ url_for('estudiantes.eliminar', id_estudiante=e.id_estudiante) }}"
+                          method="POST"
+                          onsubmit="return confirm('¿Eliminar este estudiante?');">
+                        <button type="submit" class="btn btn-danger">🗑️ Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="6">No hay estudiantes registrados.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

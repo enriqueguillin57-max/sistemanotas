@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Editar Estudiante{% endblock %}
+{% block content %}
+
+<div class="page-head">
+    <h2>✏️ Editar Estudiante #{{ estudiante.id_estudiante }}</h2>
+    <a href="{{ url_for('estudiantes.lista') }}" class="btn btn-secondary">⬅️ Volver</a>
+</div>
+
+<div class="card">
+    <form action="{{ url_for('estudiantes.editar', id_estudiante=estudiante.id_estudiante) }}"
+          method="POST">
+        <div class="form-grid">
+            <div class="field">
+                <label for="cedula">Cédula *</label>
+                <input type="text" id="cedula" name="cedula" maxlength="20"
+                       value="{{ estudiante.cedula }}" required>
+            </div>
+            <div class="field">
+                <label for="nombre">Nombre *</label>
+                <input type="text" id="nombre" name="nombre" maxlength="100"
+                       value="{{ estudiante.nombre }}" required>
+            </div>
+            <div class="field">
+                <label for="apellido">Apellido *</label>
+                <input type="text" id="apellido" name="apellido" maxlength="100"
+                       value="{{ estudiante.apellido }}" required>
+            </div>
+            <div class="field">
+                <label for="correo">Correo *</label>
+                <input type="email" id="correo" name="correo" maxlength="120"
+                       value="{{ estudiante.correo }}" required>
+            </div>
+            <div class="field">
+                <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento"
+                       value="{{ estudiante.fecha_nacimiento or '' }}">
+            </div>
+            <div class="field">
+                <label for="estado">Estado</label>
+                <select id="estado" name="estado">
+                    <option value="Activo"   {% if estudiante.estado == 'Activo' %}selected{% endif %}>Activo</option>
+                    <option value="Inactivo" {% if estudiante.estado == 'Inactivo' %}selected{% endif %}>Inactivo</option>
+                </select>
+            </div>
+            <div class="full actions">
+                <button type="submit" class="btn btn-success">💾 Actualizar</button>
+                <a href="{{ url_for('estudiantes.lista') }}" class="btn btn-secondary">❌ Cancelar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

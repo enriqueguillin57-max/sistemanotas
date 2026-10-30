@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sistema de Notas{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <!-- ===== Barra superior con logo y usuario ===== -->
+    <header class="topbar">
+        <div class="brand">
+            <div class="logo">🎓</div>
+            <h1>
+                Sistema de Notas
+                <small>Gestión académica · MySQL + Flask</small>
+            </h1>
+        </div>
+        <div class="userbox">
+            <span class="avatar">👤</span>
+            <span>{{ usuario if usuario else "Admin" }}</span>
+        </div>
+    </header>
+
+    <!-- ===== Menú de navegación con emojis ===== -->
+    <nav class="menu">
+        <a href="{{ url_for('inicio') }}">🏠 Inicio</a>
+        <a href="{{ url_for('estudiantes.index') }}">🧑‍🎓 Estudiantes</a>
+        <a href="{{ url_for('docentes.index') }}">👨‍🏫 Docentes</a>
+        <a href="{{ url_for('asignaturas.index') }}">📚 Asignaturas</a>
+        <a href="{{ url_for('notas.index') }}">📝 Notas</a>
+    </nav>
+
+    <!-- ===== Mensajes flash ===== -->
+    <main class="container">
+        {% with mensajes = get_flashed_messages(with_categories=true) %}
+            {% if mensajes %}
+                {% for categoria, mensaje in mensajes %}
+                    <div class="alert alert-{{ categoria }}">{{ mensaje }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}
+            <div class="card">
+                <h2>Bienvenido al Sistema de Notas 🎓</h2>
+                <p class="welcome-message">
+                    Selecciona una opción del menú para gestionar estudiantes,
+                    docentes, asignaturas y notas.
+                </p>
+            </div>
+        {% endblock %}
+    </main>
+
+    <footer>
+        © 2026 Sistema de Notas · Desarrollado con Python, Flask y MySQL (XAMPP)
+    </footer>
+
+</body>
+</html>

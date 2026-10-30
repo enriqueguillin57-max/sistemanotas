@@ -1,0 +1,160 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    background: #f4f6f9;
+    color: #253046;
+    min-height: 100vh;
+}
+
+/* ---------- Barra superior ---------- */
+.topbar {
+    background: linear-gradient(135deg, #1e3a8a, #2563eb);
+    color: #fff;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand .logo {
+    width: 42px; height: 42px;
+    background: #fff; color: #1e3a8a;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 22px; font-weight: 700;
+}
+.brand h1 { font-size: 19px; font-weight: 600; }
+.brand small { display: block; font-size: 12px; opacity: .85; font-weight: 400; }
+
+.userbox {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(255,255,255,.15);
+    padding: 6px 14px; border-radius: 30px;
+    font-size: 14px;
+}
+.userbox .avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: #facc15; color: #1e3a8a;
+    display: grid; place-items: center; font-weight: 700;
+}
+
+/* ---------- Menú ---------- */
+.menu {
+    background: #fff;
+    padding: 10px 24px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+    border-bottom: 1px solid #e2e8f0;
+}
+.menu a {
+    text-decoration: none;
+    color: #334155;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: .2s;
+}
+.menu a:hover { background: #e8efff; color: #1e3a8a; }
+
+/* ---------- Contenido ---------- */
+.container { max-width: 1150px; margin: 26px auto; padding: 0 18px; }
+.welcome-message { margin-top: 10px; color: #475569; }
+.edit-note { color: #64748b; }
+
+.page-head {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
+}
+.page-head h2 { font-size: 22px; color: #1e3a8a; }
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 1px 4px rgba(15,23,42,.08);
+}
+
+/* ---------- Tablas ---------- */
+table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+thead th {
+    background: #1e3a8a; color: #fff;
+    text-align: left; padding: 12px 14px;
+}
+thead th:first-child { border-radius: 8px 0 0 0; }
+thead th:last-child { border-radius: 0 8px 0 0; }
+tbody td { padding: 11px 14px; border-bottom: 1px solid #edf1f7; }
+tbody tr:hover { background: #f8faff; }
+
+.badge {
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 12.5px; font-weight: 600;
+}
+.badge.activo   { background: #dcfce7; color: #166534; }
+.badge.inactivo { background: #fee2e2; color: #991b1b; }
+
+/* ---------- Formularios ---------- */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-size: 13.5px; font-weight: 600; color: #475569; }
+.field input, .field select, .field textarea {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14.5px;
+    font-family: inherit;
+    background: #fff;
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.15);
+}
+.full { grid-column: 1 / -1; }
+
+/* ---------- Botones ---------- */
+.btn {
+    display: inline-block;
+    padding: 9px 18px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .2s;
+}
+.btn-primary { background: #2563eb; color: #fff; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-success { background: #16a34a; color: #fff; }
+.btn-success:hover { background: #15803d; }
+.btn-warning { background: #f59e0b; color: #fff; }
+.btn-warning:hover { background: #d97706; }
+.btn-danger  { background: #dc2626; color: #fff; }
+.btn-danger:hover { background: #b91c1c; }
+.btn-secondary { background: #e2e8f0; color: #334155; }
+.btn-secondary:hover { background: #cbd5e1; }
+
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.actions form { display: inline; }
+
+/* ---------- Alertas ---------- */
+.alert {
+    padding: 12px 16px; border-radius: 8px;
+    margin-bottom: 16px; font-size: 14.5px;
+}
+.alert-success { background: #dcfce7; color: #166534; }
+.alert-danger  { background: #fee2e2; color: #991b1b; }
+.alert-warning { background: #fef3c7; color: #92400e; }
+
+/* ---------- Footer ---------- */
+footer {
+    text-align: center;
+    padding: 22px;
+    color: #64748b;
+    font-size: 13px;
+}

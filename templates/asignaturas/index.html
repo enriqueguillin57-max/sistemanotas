@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Asignaturas · Sistema de Notas{% endblock %}
+{% block content %}
+
+<div class="page-head">
+    <h2>📚 Gestión de Asignaturas</h2>
+    <a href="{{ url_for('asignaturas.crear') }}" class="btn btn-primary">➕ Nueva asignatura</a>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th><th>Asignatura</th><th>Descripción</th>
+                <th>Nivel</th><th>Docente</th><th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for a in asignaturas %}
+            <tr>
+                <td>{{ a.id_asignatura }}</td>
+                <td>{{ a.nombre }}</td>
+                <td>{{ a.descripcion or "—" }}</td>
+                <td>{{ a.nivel or "—" }}</td>
+                <td>{{ a.docente }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('asignaturas.editar', id_asignatura=a.id_asignatura) }}"
+                       class="btn btn-warning">✏️ Editar</a>
+                    <form action="{{ url_for('asignaturas.eliminar', id_asignatura=a.id_asignatura) }}"
+                          method="POST"
+                          onsubmit="return confirm('¿Eliminar esta asignatura?');">
+                        <button type="submit" class="btn btn-danger">🗑️ Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="6">No hay asignaturas registradas.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
