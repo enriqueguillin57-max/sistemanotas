@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}Sistema de Notas{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="marca">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo" class="logo">
+    <span class="nombre-app">Sistema de Notas</span>
+  </div>
+  <div class="usuario">
+    <span class="avatar">👤</span>
+    <span class="nombre-usuario">{{ usuario|default('admin') }}</span>
+    <a href="#" class="salir">Salir</a>
+  </div>
+</header>
+
+<nav class="menu">
+  <a href="{{ url_for('estudiantes.lista') }}">🎓 Estudiantes</a>
+  <a href="{{ url_for('docentes.lista') }}">👨‍🏫 Docentes</a>
+  <a href="{{ url_for('asignaturas.lista') }}">📚 Asignaturas</a>
+  <a href="{{ url_for('notas.lista') }}">📝 Notas</a>
+</nav>
+
+<main class="contenedor">
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% if mensajes %}
+      {% for categoria, mensaje in mensajes %}
+        <div class="alerta alerta-{{ categoria }}">{{ mensaje }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block contenido %}{% endblock %}
+</main>
+
+<footer class="pie">
+  <p>Sistema de Notas · Flask + MySQL (XAMPP) · {{ 2026 }}</p>
+</footer>
+</body>
+</html>
